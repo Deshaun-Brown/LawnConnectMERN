@@ -3,6 +3,9 @@ import {getUsers, addUser, getUserByEmail, updateUser, deleteUser} from  '../../
 import debug from 'debug';
 const debugUsers = debug('app:users');
 import bcrypt from 'bcrypt';
+import { registerSchema, updateUserSchema } from '../../validation/userSchema.js';
+import { validate } from '../../middleware/joiValidator.js';
+import {validId} from '../../middleware/validId.js';
 
 const router = express.Router();
 
@@ -15,7 +18,7 @@ router.get('', async (req, res) => {
   }
 });
 
-router.post('', async (req, res) => {
+router.post('', validate(registerSchema), async (req, res) => {
   const newUser = req.body;
 
   //If user with email already exists, return 400
@@ -51,6 +54,7 @@ router.post('/login',async (req,res) =>{
 
 })
 
+<<<<<<< HEAD
 
 
 router.patch('/:idl',)
@@ -59,14 +63,18 @@ router.patch('/:idl',)
 
 router.patch('/:id', async (req, res) => {
   const userId = req.params.id;
+=======
+router.patch('/:id', validate(updateUserSchema), validId('id'), async (req, res) => {
+  const userId = req.id //Object Id
+>>>>>>> c04248f6932f7ccf7e792346ab6aa4316ce79cee
   const updatedData = req.body;
-
+  debugUsers(`Updating user with ID: ${userId} with data: ${JSON.stringify(updatedData)}`);
   const result = await updateUser(userId, updatedData);
   debugUsers(`Update result: ${JSON.stringify(result)}`);
   if (result.modifiedCount === 1) {
     res.status(200).json({message: 'User updated successfully'});
   } else {
-    res.status(404).json({message: 'User not found'});
+    res.status(404).json({message: 'User not updated'});
   }
 });
 
