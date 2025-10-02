@@ -1,14 +1,3 @@
-<<<<<<< HEAD
-
-
-
-
-
-
-const updateUserSchema = {
-    
-}
-
 import Joi from 'joi';
 
 // Define a schema for user registration data (POST /api/users)
@@ -31,4 +20,3 @@ const updateUserSchema = Joi.object({
 }).min(1).required();
 
 export { registerSchema, updateUserSchema };
->>>>>>> c04248f6932f7ccf7e792346ab6aa4316ce79cee

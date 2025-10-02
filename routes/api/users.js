@@ -54,19 +54,8 @@ router.post('/login',async (req,res) =>{
 
 })
 
-<<<<<<< HEAD
-
-
-router.patch('/:idl',)
-
-
-
-router.patch('/:id', async (req, res) => {
-  const userId = req.params.id;
-=======
 router.patch('/:id', validate(updateUserSchema), validId('id'), async (req, res) => {
   const userId = req.id //Object Id
->>>>>>> c04248f6932f7ccf7e792346ab6aa4316ce79cee
   const updatedData = req.body;
   debugUsers(`Updating user with ID: ${userId} with data: ${JSON.stringify(updatedData)}`);
   const result = await updateUser(userId, updatedData);
